@@ -1,0 +1,36 @@
+﻿@model EditRoleVM
+@{
+    ViewBag.Title = "Edit Roles";
+}
+<h5 class="text-center">Edit Roles</h5>
+<div class="row">
+    <div class="container-fluid col-lg-6 col-md-5 justify-content-center">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Role Id</th>
+                    <th class="col-3">Role Name</th>
+                    <th class="col-5">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <div asp-validation-summary="All" class="text-danger"> </div>
+                <tr>
+                    <td contenteditable="false">@Model.RoleId </td>
+                    <td contenteditable="true"> @Model.RoleName</td>
+                    <td>
+                        <form method="post" asp-action="EditRole" asp-controller="admin">
+                            <input hidden asp-for="RoleId"/>
+                            <input hidden asp-for="RoleName" />
+                            <div><button type="submit" class="btn btn-primary">Update</button></div>
+                            
+                            @*<input type="submit" asp-action="EditRole" asp-controller="admin" class="btn btn-primary" value="update"/> *@|
+                            <a asp-action="ListRoles" asp-controller="admin" class="btn btn-success">Cancel</a>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

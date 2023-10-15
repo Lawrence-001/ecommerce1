@@ -1,0 +1,54 @@
+﻿@model Payment
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row container-fluid justify-content-center">
+    <div class="col-6">
+        <center>
+            <h4>Payment Through Mpesa</h4>
+            <img src="images/mpesa.png" alt="Image">
+        </center>
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="phoneNumber" class="control-label"></label>
+                <input asp-for="phoneNumber" class="form-control" />
+                <span asp-validation-for="phoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <center>
+               @* <div class="form-group mt-2">
+
+                    <button type="submit" class="btn btn-outline-success w-50 mx-2">Pay</button>
+                    <button asp-controller="Orders" asp-action="Shoppingcart" class="btn btn-outline-info mx-2">Back to Shopping Cart</button>
+                    
+                </div>*@
+                <div class="row container-fluid justify-content-center">
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-outline-success w-100">Pay</button>
+                    </div>
+                    <div class="col-6">
+                        <button asp-controller="Orders" asp-action="Shoppingcart" class="btn btn-outline-info float-right">Back to Shopping Cart</button>
+                    </div>
+                </div>
+
+            </center>
+        </form>
+    </div>
+</div>
+
+<div>
+    @*<a asp-action="Index">Back to List</a>*@
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

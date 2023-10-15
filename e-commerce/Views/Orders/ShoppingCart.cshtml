@@ -1,0 +1,110 @@
+﻿@model CartVM
+@{
+    ViewBag.Title = "Cart details";
+}
+<h3 class="text-center">Cart details</h3>
+
+<div class="row">
+    <div class=" container-fluid col-lg-6 col-md-7">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th> Quantity</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th class="col-3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Cart.CartItems)
+                {
+                    <tr>
+                        <td class="align-middle">@item.Quantity</td>
+                        <td class="align-middle"> @item.Product.Name</td>
+                        <td class="align-middle">@item.Product.Cost</td>
+                        <td class="align-middle">@(item.Quantity*item.Product.Cost)</td>
+                        <td class="align-middle">
+                            <a asp-action="RemoveFromCart" asp-controller="orders" asp-route-id="@item.Product.ProductId" class="btn btn-outline-danger">
+                                <i class="bi bi-dash"></i>
+                            </a> |
+                            <a asp-action="AddToCart" asp-controller="orders" asp-route-id="@item.Product.ProductId"
+                           class="btn btn-outline-success"> <i class="bi bi-plus"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"></td>
+                    <td><b>Total: </b></td>
+                    <td>
+                        @Model.CartTotal
+                    </td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="row container-fluid justify-content-center">
+            <div class="col-6">
+                <a asp-action="index" asp-controller="home" class="btn btn-outline-primary">Continue shopping</a>
+            </div>
+            <div class="col-4">
+                <a class="btn btn-success" asp-controller="Mpesa" asp-action="Index" style="border-radius: 35px;">
+                    Pay With Mpesa
+
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+    <script>
+
+        let _total = @Html.Raw(Model.CartTotal);
+
+        paypal.Button.render({
+            //Configure environment
+            env: 'sandbox',
+            client: {
+                sandbox: 'AcKRtgL4i68EZ2ZYuYUx3ilihAg2YhL5dtF_m19A8MjBWVOn6ewNS4M_uV8gA3xi98zTcUq38gUHbVFx'
+            },
+
+            //Customize button
+            locale: 'en_US',
+            style: {
+                size: 'small',
+                color: 'gold',
+                shape: 'pill'
+            },
+            commit: true,
+
+            //Set up a payment
+            payment: function (data, actions) {
+                return actions.payment.create({
+                    transactions: [{
+                        amount: {
+                            total: _total,
+                            currency: 'USD'
+                        }
+                    }]
+                });
+            },
+
+            //Execute the payment
+            onAuthorize: function (data, actions) {
+                return actions.payment.execute().then(function () {
+                    var url = '@Url.Action("CompleteOrder", "Orders", new { })';
+                    window.location.href = url;
+                });
+            }
+
+        }, '#paypal-btn')
+    </script>
+}

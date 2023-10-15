@@ -1,0 +1,43 @@
+﻿@model ProductEditVM
+@{
+    ViewBag.Title = "Edit Product";
+    var photoPath = "~/images/" + (Model.ExistingPhoto ?? "default.jpeg");
+}
+<h3 class="text-center">Edit product</h3>
+
+<div class="row">
+    <div class="container-fluid col-sm-8 col-md-7 col-lg-6">
+        <form class="form-group" method="post" asp-action="edit" asp-controller="home" enctype="multipart/form-data">
+            <div class="text-danger" asp-validation-summary="All">
+            </div>
+            <input hidden asp-for="ProductId" />
+            <div>
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <div>
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+            </div>
+            <div>
+                <label asp-for="ProductCategory"></label>
+                <select asp-for="ProductCategory" class="form-control" asp-items="@Html.GetEnumSelectList<ProductCategory>()">Select...</select>
+            </div>
+            <div>
+                <label asp-for="Photo"></label>
+                <input type="file" accept=".png, .jpg, .jpeg" asp-for="Photo" class="form-control" />
+            </div>
+            <div>
+                <img class="img-thumbnail" alt="photo" src="@photoPath" asp-append-version="true" />
+            </div>
+            <div>
+                <label asp-for="Cost"></label>
+                <input asp-for="Cost" class="form-control" />
+            </div><br />
+            <div>
+                <button type="submit" asp-action="edit" asp-controller="home" class="btn btn-outline-primary"> Update</button>
+                <a asp-action="index" asp-controller="home" class="btn btn-outline-info float-right">Cancel</a>
+            </div>
+        </form>
+        </div>
+    </div>
