@@ -20,6 +20,7 @@ namespace e_commerce.Controllers
             _signInManager = signInManager;
             _userManager = userManager;
         }
+
         public IActionResult Users()
         {
             var users = _userManager.Users;
@@ -32,6 +33,7 @@ namespace e_commerce.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Register(RegistrationVM model)
@@ -63,12 +65,14 @@ namespace e_commerce.Controllers
             }
             return View(model);
         }
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginVM model, string returnUrl)
@@ -94,6 +98,7 @@ namespace e_commerce.Controllers
             return View(model);
 
         }
+
         [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {

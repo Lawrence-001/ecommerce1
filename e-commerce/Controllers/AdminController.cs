@@ -20,12 +20,14 @@ namespace e_commerce.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult CreateRole()
         {
             return View();
         }
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> CreateRole(RoleVM roleVM)
@@ -46,6 +48,7 @@ namespace e_commerce.Controllers
             return View(roleVM);
 
         }
+
         public async Task<IActionResult> AddUserToRole(string userId, string roleName)
         {
             var user = await _userManager.FindByIdAsync(userId);
@@ -56,6 +59,7 @@ namespace e_commerce.Controllers
             }
             return View();
         }
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ListRoles()
@@ -63,6 +67,7 @@ namespace e_commerce.Controllers
             var rolesList = await _roleManager.Roles.ToListAsync();
             return View(rolesList);
         }
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> EditRole(string id)
@@ -79,6 +84,7 @@ namespace e_commerce.Controllers
             }
             return View();
         }
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> EditRole(EditRoleVM model)
@@ -100,6 +106,7 @@ namespace e_commerce.Controllers
             }
             return View(model);
         }
+
         [AllowAnonymous]
         public async Task<IActionResult> DeleteRole(string id)
         {

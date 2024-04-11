@@ -20,6 +20,7 @@ namespace e_commerce.Controllers
             //payment.Amount = decimal.Parse(amount);
             return View(payment);
         }
+
         [HttpPost]
         public IActionResult Index(Payment payment)
         {
@@ -62,6 +63,7 @@ namespace e_commerce.Controllers
             }
             return View();
         }
+
         [HttpGet("gettoken")]
         public MpesaTokenModel getMpesaToken()
         {

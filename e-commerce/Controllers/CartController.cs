@@ -16,6 +16,7 @@ namespace e_commerce.Controllers
             _repo = repo;
             _cart = cart;
         }
+
         public IActionResult Index()
         {
             var results = _cart.GetCartItems();
@@ -28,6 +29,7 @@ namespace e_commerce.Controllers
             };
             return View(cartVM);
         }
+
         public RedirectToActionResult AddToCart(int id)
         {
             var product = _repo.GetProductById(id);

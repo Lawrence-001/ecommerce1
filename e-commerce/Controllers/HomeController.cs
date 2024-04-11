@@ -33,12 +33,14 @@ namespace e_commerce.Controllers
             _webHostBuilder = webHostEnvironment;
             _signInManager = signInManager;
         }
+
         [AllowAnonymous]
         public IActionResult Index()
         {
             var model = _productRepo.GetProducts();
             return View(model);
         }
+
         [AllowAnonymous]
         [HttpGet]
         public IActionResult Index(string searchString)
@@ -52,12 +54,14 @@ namespace e_commerce.Controllers
             //var model = _productRepo.GetProducts();
             //return View(model);
         }
+
         [HttpGet]
         [Authorize(Roles ="Admin")]
         public IActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public IActionResult Create(ProductCreateVM model)
